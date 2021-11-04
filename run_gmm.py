@@ -1,5 +1,7 @@
 import pandas
 from sklearn.cluster import KMeans
+from sklearn.mixture import GaussianMixture
+
 import matplotlib.pyplot as pyplot
 
 data = pandas.read_csv("dataset.csv")
@@ -16,3 +18,20 @@ data = data.values
 
 pyplot.scatter(data[:,1], data[:,2])
 pyplot.savefig("scatter.png") # So we see that the distribution inside the group is different -> KMeans will not work as well
+
+data = data[:,1:3] #inclusive, exclusive
+print(data)
+
+# Using the other model (KMeans), just to further compare:
+kmean_results = KMeans(n_cluster = 3).fit_predict(data)
+print(kmean_results)
+pyplot.scatter(data[:,1], data[:,2], c= kmean_results)
+pyplot.savefig("scatter_kmeans_3.png") # According to centroid
+pyplot.close()
+
+# GAUSSIAN (similar syntax)
+gmm_results = GaussianMixture(n_components = 3).fit_predict(data)
+print(kmean_results)
+pyplot.scatter(data[:,1], data[:,2], c= kmean_results)
+pyplot.savefig("scatter_kmeans_3.png")
+pyplot.close()
