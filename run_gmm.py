@@ -28,10 +28,13 @@ print(kmean_results)
 pyplot.scatter(data[:,1], data[:,2], c= kmean_results)
 pyplot.savefig("scatter_kmeans_3.png") # According to centroid
 pyplot.close()
+# kmeans : problems when overlapping clusters
 
-# GAUSSIAN (similar syntax)
+# GAUSSIAN MIXTURE MODEL (similar syntax)
 gmm_results = GaussianMixture(n_components = 3).fit_predict(data)
 print(kmean_results)
 pyplot.scatter(data[:,1], data[:,2], c= kmean_results)
 pyplot.savefig("scatter_kmeans_3.png")
 pyplot.close()
+# very dense at the center, and distributino is symetric
+# cluster : dense in the center, symetric distribution , even when it is overlapping cluster
