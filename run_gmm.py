@@ -32,19 +32,30 @@ pyplot.savefig("scatter.png") # So we see that the distribution inside the group
 # Using the other model (KMeans), just to further compare:
 
 def run_means(n, data):
-	kmeans_machine = KMeans(n_clusters = n)
+	kmeans_machine = KMeans(n_clusters = n) # instead of having this code on the following line, now we have a machine
 	kmean_results = kmeans_machine.fit_predict(data)
+	silhouette = 0
+	if n>1 :
+		silhouette = silhouette_score(data, kmeans_machine.labels_, metric = 'euclidean')
 	print(kmean_results)
 	pyplot.scatter(data[:,0], data[:,1], c= kmean_results)
-	pyplot.savefig("scatter_kmeans_3.png") # According to centroid
+	pyplot.savefig("scatter_kmeans_"+ str(n) + ".png") # According to centroid
 	pyplot.close()
+	return silhouette
 # kmeans : problems when overlapping clusters
 
 # GAUSSIAN MIXTURE MODEL (similar syntax)
-gmm_results = GaussianMixture(n_components = 3).fit_predict(data)
-print(kmean_results)
-pyplot.scatter(data[:,0], data[:,1], c= kmean_results)
-pyplot.savefig("scatter_gmm_3.png")
-pyplot.close()
+
+def run_gmm(n, data):
+	gmm_results = GaussianMixture(n_components = 3).fit_predict(data)
+	kmean_results = gmm_machine.fit_predict(data)
+	if n>1:
+		silhouette_score(data, gmm_results, metrics = 'euclidean')
+	pyplot.scatter(data[:,0], data[:,1], c= kmean_results)
+	pyplot.savefig("scatter_gmm_" + str(n) + ".png")
+	pyplot.close()
+	return silhouette
 # very dense at the center, and distributino is symetric
 # cluster : dense in the center, symetric distribution , even when it is overlapping cluster
+
+
